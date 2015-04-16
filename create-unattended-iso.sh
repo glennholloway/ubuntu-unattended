@@ -2,7 +2,6 @@
 
 # file names & paths
 tmp="/tmp"  # destination folder to store the final iso file
-hostname="ubuntu"
 
 # define spinner function for slow tasks
 # courtesy of http://fitnr.com/showing-a-bash-spinner.html
@@ -172,7 +171,6 @@ pwhash=$(echo $password | mkpasswd -s -m sha-512)
 # so instead, I am using @
 sed -i "s@{{username}}@$username@g" $tmp/iso_new/preseed/$seed_file
 sed -i "s@{{pwhash}}@$pwhash@g" $tmp/iso_new/preseed/$seed_file
-sed -i "s@{{hostname}}@$hostname@g" $tmp/iso_new/preseed/$seed_file
 sed -i "s@{{timezone}}@$timezone@g" $tmp/iso_new/preseed/$seed_file
 
 # calculate checksum for seed file
@@ -203,14 +201,12 @@ echo " finished remastering your ubuntu iso file"
 echo " the new file is located at: $tmp/$new_iso_name"
 echo " your username is: $username"
 echo " your password is: $password"
-echo " your hostname is: $hostname"
 echo " your timezone is: $timezone"
 echo
 
 # unset vars
 unset username
 unset password
-unset hostname
 unset timezone
 unset pwhash
 unset download_file
