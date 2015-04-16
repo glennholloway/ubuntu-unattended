@@ -94,8 +94,8 @@ while true; do
 done
 
 # ask the user questions about his/her preferences
-read -ep " please enter your preferred timezone: " -i "Europe/Amsterdam" timezone
-read -ep " please enter your preferred username: " -i "haraldvdlaan" username
+read -ep " please enter your preferred timezone: " -i "US/Eastern" timezone
+read -ep " please enter your preferred username: " -i "quapow" username
 read -sp " please enter your preferred password: " password
 printf "\n"
 read -sp " confirm your preferred password: " password2
@@ -115,11 +115,11 @@ if [[ ! -f $tmp/$download_file ]]; then
     download "$download_location$download_file"
 fi
 
-# download netson seed file
-seed_file="haraldvdlaan.seed"
+# download quapow seed file
+seed_file="quapow.seed"
 if [[ ! -f $tmp/$seed_file ]]; then
     echo -n " downloading $seed_file: "
-    download "https://github.com/hvanderlaan/ubuntu-unattended/raw/master/$seed_file"
+    download "https://github.com/glennholloway/ubuntu-unattended/raw/master/$seed_file"
 fi
 
 # install required packages
@@ -153,10 +153,10 @@ cd $tmp/iso_new
 echo en > $tmp/iso_new/isolinux/lang
 
 # set late command
-late_command="chroot /target wget -O /home/$username/init.sh https://github.com/hvanderlaan/ubuntu-unattended/raw/master/init.sh ;\
+late_command="chroot /target wget -O /home/$username/init.sh https://github.com/glennholloway/ubuntu-unattended/raw/master/init.sh ;\
     chroot /target chmod +x /home/$username/init.sh ;"
 
-# copy the netson seed file to the iso
+# copy the custom seed file to the iso
 cp -rT $tmp/$seed_file $tmp/iso_new/preseed/$seed_file
 
 # include firstrun script
@@ -182,7 +182,7 @@ seed_checksum=$(md5sum $tmp/iso_new/preseed/$seed_file)
 sed -i "/label install/ilabel autoinstall\n\
   menu label ^Unattended Ubuntu Server Install\n\
   kernel /install/vmlinuz\n\
-  append file=/cdrom/preseed/ubuntu-server.seed initrd=/install/initrd.gz auto=true priority=high preseed/file=/cdrom/preseed/haraldvdlaan.seed preseed/file/checksum=$seed_checksum --" $tmp/iso_new/isolinux/txt.cfg
+  append file=/cdrom/preseed/ubuntu-server.seed initrd=/install/initrd.gz auto=true priority=high preseed/file=/cdrom/preseed/quapow.seed preseed/file/checksum=$seed_checksum --" $tmp/iso_new/isolinux/txt.cfg
 
 echo " creating the remastered iso"
 cd $tmp/iso_new
