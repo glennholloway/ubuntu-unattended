@@ -4,7 +4,7 @@ d-i debian-installer/country                                string      US
 d-i debian-installer/locale                                 string      en_US
 d-i debian-installer/splash                                 boolean     false
 d-i localechooser/supported-locales                         multiselect en_US.UTF-8
-d-i pkgsel/install-language-support                         boolean     true
+d-i pkgsel/install-language-support                         boolean     false
 
 # keyboard selection
 d-i console-setup/ask_detect                                boolean     false
@@ -56,7 +56,12 @@ d-i pkgsel/update-policy                                    select      none
 d-i pkgsel/updatedb                                         boolean     true
 
 # disk partitioning
-d-i partman-auto/disk                                       string      /dev/sda
+# attempt to distinguish usb install drive from target system drive
+d-i partman/early_command                                  string       \
+   USBDEV=$(mount | grep hd-media | cut -d' ' -f1 | sed 's/\(.*\)./\1/');\
+   TGTDEV=$(list-devices disk | grep -v $USBDEV | head -1);\
+   debconf-set partman-auto/disk $TGTDEV;\
+   debconf-set grub-installer/bootdev $TGTDEV;
 d-i partman/confirm_write_new_label                         boolean     true
 d-i partman/choose_partition                                select      finish
 d-i partman/confirm_nooverwrite                             boolean     true
