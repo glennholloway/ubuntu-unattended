@@ -44,16 +44,16 @@ $ sudo ./create-unattended-iso.sh
  please enter your preference: [1|2|3|4]:
 ```
 
-* Enter your desired timezone; the default is *Europe/Amsterdam*:
+* Enter your desired timezone; the default is *US/Eastern*:
 
 ```
- please enter your preferred timezone: Europe/Amsterdam
+ please enter your preferred timezone: US/Eastern
 ```
 
-* Enter your desired username; the default is *haraldvdlaan*:
+* Enter your desired username; the default is *quapow*:
 
 ```
- please enter your preferred username: haraldvdlaan
+ please enter your preferred username: quapow
 ```
 
 * Enter the password for your user account; the default is *empty*
@@ -99,10 +99,10 @@ This script does a bunch of stuff, here's the quick walk-through:
  -----
  finished remastering your ubuntu iso file
  the new file is located at: /tmp/ubuntu-14.04.1-server-amd64-unattended.iso
- your username is: haraldvdlaan
+ your username is: quapow
  your password is: 
  your hostname is: ubuntu
- your timezone is: Europe/Amsterdam
+ your timezone is: US/Eastern
 ```
 
 ### Once Ubuntu is installed ...
